@@ -83,8 +83,8 @@ if pagina == "Formulario":
             #"devengado_pro": st.session_state.devengado_pro,
             #"deveng_cin_ajuste": st.session_state.deveng_cin_ajuste,
             "prioridad": st.session_state.prioridad,
-            "monto": st.session_state.monto,
             "cantidad":st.session_state.cantidad,
+            "monto": st.session_state.monto,
             "monto_minimo": st.session_state.monto_minimo
         }
         st.session_state.registros.append(nuevo_registro)
