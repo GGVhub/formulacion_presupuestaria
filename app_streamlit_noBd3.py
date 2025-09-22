@@ -26,8 +26,9 @@ form_defaults = {
     "clasificador": "",
     #"devengado_pro": 0.0,
     #"deveng_cin_ajuste": 0.0,
-    "monto": 0.0,
     "prioridad": "Alta",
+    "monto": 0.0,
+    "Cantidad":0,
     "monto_minimo": 0.0
 }
 
@@ -58,11 +59,18 @@ if pagina == "Formulario":
     objeto_gasto_valor = objeto_gasto[0] if len(objeto_gasto) > 0 else "No disponible"
     st.text_input("Objeto Gasto", value=objeto_gasto_valor, disabled=True)
 
-    st.session_state.clasificador = st.selectbox("Clasificador", op_clasificador, index=None, placeholder="Seleccionar Clasificador")
+    clasificador= dfcatalogo[dfcatalogo['Nombre'] == st.session_state.item]['Descripcion'].values
+    clasificador_valor = clasificador[0] if len(clasificador) > 0 else "No disponible"
+    st.text_input('Clasificador', value=clasificador_valor , disabled=True )
+
+    
+
+    #st.session_state.clasificador = st.selectbox("Clasificador", op_clasificador, index=None, placeholder="Seleccionar Clasificador")
     #st.session_state.devengado_pro = st.number_input("Devengado Pro", step=0.01, value=st.session_state.devengado_pro)
     #st.session_state.deveng_cin_ajuste = st.number_input("Devengado sin ajuste (1,1)", step=0.01, value=st.session_state.deveng_cin_ajuste)
-    st.session_state.monto = st.number_input("Monto", step=0.01, value=st.session_state.monto)
+    st.session_state.cantidad= st.number_input('Cantidad', placeholder='ingresar cantidad', min_value=0, step=1)
     st.session_state.prioridad = st.selectbox("Prioridad", ["Alta", "Media", "Baja"], index=["Alta", "Media", "Baja"].index(st.session_state.prioridad))
+    st.session_state.monto = st.number_input("Monto", step=0.01, value=st.session_state.monto)
     st.session_state.monto_minimo = st.number_input("Monto Mínimo", step=0.01, value=st.session_state.monto_minimo)
 
     if st.button("Guardar"):
@@ -71,11 +79,12 @@ if pagina == "Formulario":
             "area": st.session_state.area,
             "item": st.session_state.item,
             "objeto_gasto": objeto_gasto_valor,
-            "clasificador": st.session_state.clasificador,
+            "clasificador": clasificador_valor,
             #"devengado_pro": st.session_state.devengado_pro,
             #"deveng_cin_ajuste": st.session_state.deveng_cin_ajuste,
-            "monto": st.session_state.monto,
             "prioridad": st.session_state.prioridad,
+            "monto": st.session_state.monto,
+            "cantidad":st.session_state.cantidad,
             "monto_minimo": st.session_state.monto_minimo
         }
         st.session_state.registros.append(nuevo_registro)
@@ -120,3 +129,4 @@ elif pagina == "Gráficos":
         st.subheader("Devengado Pro vs sin ajuste")
         fig2 = px.scatter(df, x="devengado_pro", y="deveng_cin_ajuste", color="area", title="Devengado Pro vs sin ajuste")
         st.plotly_chart(fig2)
+
