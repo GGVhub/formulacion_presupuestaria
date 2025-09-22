@@ -72,6 +72,7 @@ if pagina == "Formulario":
     st.session_state.prioridad = st.selectbox("Prioridad", ["Alta", "Media", "Baja"], index=["Alta", "Media", "Baja"].index(st.session_state.prioridad))
     st.session_state.monto = st.number_input("Monto", step=0.01, value=st.session_state.monto)
     st.session_state.monto_minimo = st.number_input("Monto Mínimo", step=0.01, value=st.session_state.monto_minimo)
+    st.session_state.justificacion=st.text_area('Justificacion')
 
     if st.button("Guardar"):
         nuevo_registro = {
@@ -85,7 +86,8 @@ if pagina == "Formulario":
             "prioridad": st.session_state.prioridad,
             "cantidad":st.session_state.cantidad,
             "monto": st.session_state.monto,
-            "monto_minimo": st.session_state.monto_minimo
+            "monto_minimo": st.session_state.monto_minimo,
+            "Justificacion": st.session_state.justificacion,
         }
         st.session_state.registros.append(nuevo_registro)
         st.success("Datos guardados correctamente.")
