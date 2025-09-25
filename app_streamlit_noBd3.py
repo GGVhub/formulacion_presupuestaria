@@ -11,7 +11,7 @@ op_clasificador= dfcatalogo['Descripcion'].dropna().unique()
 
 dfprograma= pd.read_excel('programasok.xlsx', sheet_name='programas', engine='openpyxl')
 op_programa = dfprograma['jurisdiccion'].dropna().unique()
-op_area= dfprograma['area'].dropna().unique()
+#op_area= dfprograma['area'].dropna().unique()
 
 
 # Inicializar almacenamiento en sesión
@@ -21,7 +21,7 @@ if "registros" not in st.session_state:
 # Inicializar campos del formulario con valores por defecto
 form_defaults = {
     "juridiccion": "",
-    "area": "",
+    #"area": "",
     "item": lista_items[0] if lista_items else "",
     "clasificador": "",
     #"devengado_pro": 0.0,
@@ -52,7 +52,7 @@ if pagina == "Formulario":
     st.session_state.jurisdiccion = st.selectbox("Jurisdicción:", op_programa,index=None, placeholder="Seleccionar jurisdiccion")
     
     
-    st.session_state.area = st.selectbox("Área",op_area, index=None, placeholder='Seleccionar Area')
+    #st.session_state.area = st.selectbox("Área",op_area, index=None, placeholder='Seleccionar Area')
     st.session_state.item = st.selectbox("Item", lista_items, index=None, placeholder="Seleccionar Item")
 
     objeto_gasto = dfcatalogo[dfcatalogo["Nombre"] == st.session_state.item]["Objeto Gasto"].values
@@ -77,7 +77,7 @@ if pagina == "Formulario":
     if st.button("Guardar"):
         nuevo_registro = {
             "juridiccion": st.session_state.jurisdiccion,
-            "area": st.session_state.area,
+            #"area": st.session_state.area,
             "item": st.session_state.item,
             "objeto_gasto": objeto_gasto_valor,
             "clasificador": clasificador_valor,
